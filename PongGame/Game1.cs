@@ -20,9 +20,7 @@ namespace PongGame
         private int pongxpos;
         private int pongypos;
         private int pongspeed;
-        private int x1speed;
         private int y1speed;
-        private int x2speed;
         private int y2speed;
 
         
@@ -46,6 +44,8 @@ namespace PongGame
             pongxpos = _graphics.PreferredBackBufferWidth / 2;
             pongypos = _graphics.PreferredBackBufferHeight / 2;
 
+            p1Wsize
+            p1Lsize 
         }
 
         protected override void Initialize()
@@ -78,7 +78,7 @@ namespace PongGame
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
-                if (p1xpos > _playerOne.Height)
+                if (p1xpos > 693)
                 {
                     y1speed += 5;
                 }
@@ -96,6 +96,11 @@ namespace PongGame
             // TODO: Add your drawing code here
             // pong ball roughyl 25 by 25
             base.Draw(gameTime);
+            _spriteBatch.Begin();
+
+            _spriteBatch.Draw(new Rectangle(p1xpos, p1ypos, p1size, _playerOne.Height));
+
+            _spriteBatch.End();
         }
     }
 }
