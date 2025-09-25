@@ -98,7 +98,7 @@ namespace PongGame
             base.Draw(gameTime);
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(new Rectangle(p1xpos, p1ypos, p1size, _playerOne.Width,playerOne.Height));
+            _spriteBatch.Draw(new Rectangle(p1xpos, p1ypos, p1size, _playerOne.Width,_playerOne.Height));
 
             _spriteBatch.End();
         }
