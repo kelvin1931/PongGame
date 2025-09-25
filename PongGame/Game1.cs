@@ -24,10 +24,12 @@ namespace PongGame
         private int pongxSpeed;
         private int pongySpeed;
         private Rectangle Play1, Play2, Pong;
-        private int playerOneScore = 0;
-        private int playerTwoScore = 0;
+        private float playerOneScore = 0;
+        private float playerTwoScore = 0;
         private SpriteFont _font;
         private Vector2 scorepos = new Vector2 (910, 20);
+        private int addOne = 0;
+        private int subOne = 0;
 
 
         public Game1()
@@ -36,8 +38,8 @@ namespace PongGame
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
 
-            _graphics.PreferredBackBufferHeight = 600;
-            _graphics.PreferredBackBufferWidth = 800;
+            _graphics.PreferredBackBufferHeight = 1080;
+            _graphics.PreferredBackBufferWidth = 1920;
             IsMouseVisible = true;
 
             
@@ -47,8 +49,8 @@ namespace PongGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            pongxSpeed = 5;
-            pongySpeed = 5;
+            pongxSpeed = 8;
+            pongySpeed = 8;
 
             base.Initialize();
         }
@@ -62,10 +64,10 @@ namespace PongGame
 
             _font = Content.Load<SpriteFont>("Spritefont");
             
-            p1xpos = 100;
+            p1xpos = 0;
             p1ypos = (_graphics.PreferredBackBufferHeight / 2) - (_playerOne.Height / 2);
 
-            p2xpos = _graphics.PreferredBackBufferWidth - 100;
+            p2xpos = _graphics.PreferredBackBufferWidth - 50;
             p2ypos = (_graphics.PreferredBackBufferHeight / 2) - (_playerTwo.Height / 2);
 
             pongXpos = _graphics.PreferredBackBufferWidth / 2;
@@ -81,25 +83,25 @@ namespace PongGame
             {
                 if (p1ypos > 0)
                 {
-                    p1ypos -= 5;
+                    p1ypos -= 15;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.S))
             {
                 if (p1ypos + _playerOne.Height < _graphics.PreferredBackBufferHeight)
                 {
-                    p1ypos += 5;
+                    p1ypos += 15;
                 }
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Up))
             {
                 if (p2ypos > 0)
-                    p2ypos -= 5;
+                    p2ypos -= 15;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Down))
             {
                 if (p2ypos + _playerTwo.Height < _graphics.PreferredBackBufferHeight)
-                    p2ypos += 5;
+                    p2ypos += 15;
             }
 
 
@@ -117,25 +119,29 @@ namespace PongGame
             }
             if (Pong.Intersects(Play1))
             {
-                pongxSpeed = -pongxSpeed;
+                addOne = addOne + 1;
+                pongxSpeed = pongxSpeed + addOne;
             }
             if (Pong.Intersects(Play2))
             {
-                pongxSpeed = -pongxSpeed;
+               subOne = subOne + 1;
+                pongxSpeed = -pongxSpeed - subOne;
             }
             if(pongXpos < 0 )
             {
                 playerTwoScore += 1;
                 pongXpos = _graphics.PreferredBackBufferWidth / 2;
                 pongYpos = _graphics.PreferredBackBufferHeight / 2;
-                pongxSpeed = -pongxSpeed;
+                pongxSpeed = 0;
+                pongxSpeed -= 5;
             }
             if (pongXpos + _pongBall.Width > 1920)
             {
                 playerOneScore += 1;
                 pongXpos = _graphics.PreferredBackBufferWidth / 2;
                 pongYpos = _graphics.PreferredBackBufferHeight / 2;
-                pongxSpeed = -pongxSpeed;
+                pongxSpeed = 0;
+                pongxSpeed += 5;
             }
             if (playerOneScore == 10)
             {
@@ -160,7 +166,7 @@ namespace PongGame
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.GhostWhite);
+            GraphicsDevice.Clear(Color.Black);
 
             // TODO: Add your drawing code here
             // pong ball roughyl 25 by 25
@@ -170,7 +176,7 @@ namespace PongGame
             _spriteBatch.Draw(_playerOne, Play1 , Color.Red);
             _spriteBatch.Draw(_playerTwo,Play2 , Color.Blue);
             _spriteBatch.Draw(_pongBall, Pong , Color.White);
-            _spriteBatch.DrawString(_font, $"Score: {playerOneScore} : {playerTwoScore}",scorepos, Color.AntiqueWhite);
+            _spriteBatch.DrawString(_font, $"Score: {playerOneScore} : {playerTwoScore}",scorepos, Color.WhiteSmoke);
 
             _spriteBatch.End();
         }
