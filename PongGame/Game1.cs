@@ -10,9 +10,9 @@ namespace PongGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        private Texture _playerOne;
-        private Texture _playerTwo;
-        private Texture _pongBall;
+        private Texture2D _playerOne;
+        private Texture2D _playerTwo;
+        private Texture2D _pongBall;
         private int p1xpos;
         private int p1ypos;
         private int p2xpos;
@@ -98,7 +98,7 @@ namespace PongGame
             base.Draw(gameTime);
             _spriteBatch.Begin();
 
-            _spriteBatch.Draw(new Rectangle(p1xpos, p1ypos, p1size, _playerOne.Height));
+            _spriteBatch.Draw(new Rectangle(p1xpos, p1ypos, p1size, _playerOne.Width,playerOne.Height));
 
             _spriteBatch.End();
         }
